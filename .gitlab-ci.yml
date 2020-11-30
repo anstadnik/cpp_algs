@@ -1,0 +1,19 @@
+image: alpine
+
+variables:
+    GIT_SUBMODULE_STRATEGY: normal
+
+stages:
+    - deploy
+
+pages:
+    stage: deploy
+    script:
+        - apk update && apk add cmake make g++ make doxygen graphviz ttf-freefont
+        - cmake . && make doc
+        - mv html/ public/
+    artifacts:
+        paths:
+            - public
+    only:
+        - master
