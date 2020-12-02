@@ -17,7 +17,7 @@ project(Algs LANGUAGES CXX
 )
 
 # List subfolders
-add_subdirectory(test)
+add_subdirectory(math)
 
 # Use openmp if found
 option(USE_OPENMP "flag to use OpenMP for multithreading" ON)
