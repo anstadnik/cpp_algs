@@ -1,13 +1,26 @@
 #include "io.hpp"
 
-std::string read_file(const std::string & fn) {
+std::string readFileToString(const std::string& fn) {
   std::ifstream in(fn);
-  if (in)
-  {
+  if (in) {
     std::ostringstream contents;
     contents << in.rdbuf();
     in.close();
-    return(contents.str());
+    return (contents.str());
+  }
+  throw(errno);
+}
+
+std::list<std::string> readFileToList(const std::string& fn) {
+  std::ifstream in(fn);
+  if (in) {
+    std::string t;
+    std::list<std::string> l;
+
+    while (std::getline(in, t)) l.push_back(t);
+
+    in.close();
+    return l;
   }
   throw(errno);
 }
