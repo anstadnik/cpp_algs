@@ -10,8 +10,8 @@ endif()
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 14)
 
-# It's needed for shared libraries
-# set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+# Needed for backward
+link_libraries(dw)
 
 # Define project
 project(algs LANGUAGES CXX
@@ -20,6 +20,7 @@ project(algs LANGUAGES CXX
 )
 
 # List subfolders
+add_subdirectory(3rd_party)
 add_subdirectory(io)
 add_subdirectory(math)
 
