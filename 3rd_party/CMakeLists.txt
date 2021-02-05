@@ -1,14 +1,12 @@
 file(GLOB FILE_NAMES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
 
-add_subdirectory(backward-cpp)
-
 get_filename_component(LIB_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 string(REPLACE " " "_" LIB_NAME ${LIB_NAME})
 
-add_library(${LIB_NAME} STATIC ${FILE_NAMES} ${BACKWARD_ENABLE})
+add_library(${LIB_NAME} INTERFACE)
 
-# Add to the top level CMakeLists.txt
-# link_libraries(-ldw)
-# set(CMAKE_STATIC_LINKER_FLAGS "${CMAKE_STATIC_LINKER_FLAGS} -ldw")
+# Needed for backward
+find_library(DW_LIBRARY dw)
+target_link_libraries(${LIB_NAME} INTERFACE ${DW_LIBRARY})
 
-add_backward(${LIB_NAME})
+target_precompile_headers(${LIB_NAME} INTERFACE icecream.hpp)
