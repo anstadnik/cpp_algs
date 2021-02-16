@@ -1,4 +1,4 @@
-#include "io.hpp"
+#include "io.h"
 
 std::string readFileToString(const std::string& fn) {
   std::ifstream in(fn);

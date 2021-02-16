@@ -93,7 +93,7 @@ namespace boost
     class exception;
 
     // Forward declare this internal function because boost::diagnostic_information has a
-    // default argument, and if this icecream.hpp header is included before the boost
+    // default argument, and if this icecream.h header is included before the boost
     // exception headers it will trigger a compile error: redeclaration of ‘template<class
     // T> std::string boost::diagnostic_information(const T&, bool)’ may not have default
     // arguments
