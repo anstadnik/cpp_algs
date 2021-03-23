@@ -9,6 +9,9 @@ endif()
 # Set c++ standard
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
+
+add_compile_options(-Wall -Wextra -pedantic -Werror -fsanitize=undefined)
+add_link_options(-fsanitize=undefined)
 # set(CMAKE_STATIC_LINKER_FLAGS "-Wl,--export-all-symbols")
 
 # Define project
