@@ -22,5 +22,5 @@ std::list<std::string> readFileToList(const std::string& fn) {
     in.close();
     return l;
   }
-  throw(errno);
+  throw(std::system_error(errno, std::generic_category()));
 }
