@@ -8,5 +8,3 @@ add_library(${LIB_NAME} INTERFACE)
 # Needed for backward
 find_library(DW_LIBRARY dw)
 target_link_libraries(${LIB_NAME} INTERFACE ${DW_LIBRARY})
-
-target_precompile_headers(${LIB_NAME} INTERFACE icecream.h)

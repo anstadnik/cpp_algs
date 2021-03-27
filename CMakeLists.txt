@@ -5,14 +5,32 @@ cmake_minimum_required(VERSION 3.9)
 if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE "RelWithDebInfo")
 endif()
+string(APPEND CMAKE_CXX_FLAGS_DEBUG " -Wall -Wextra -pedantic -Werror")
 
 # Set c++ standard
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 
-add_compile_options(-Wall -Wextra -pedantic -Werror -fsanitize=undefined)
-add_link_options(-fsanitize=undefined)
-# set(CMAKE_STATIC_LINKER_FLAGS "-Wl,--export-all-symbols")
+if(CMAKE_BUILD_TYPE MATCHES "Debug")
+	# set(CMAKE_BUILD_TYPE "RelWithDebInfo")
+
+	# string(APPEND CMAKE_CXX_FLAGS_DEBUG " -fno-omit-frame-pointer -fsanitize=address")
+	# string(APPEND CMAKE_LINKER_FLAGS_DEBUG " -fno-omit-frame-pointer -fsanitize=address")
+	# add_link_options(-fsanitize=address)
+
+	# string(APPEND CMAKE_CXX_FLAGS_DEBUG " -fsanitize=undefined")
+	# string(APPEND CMAKE_LINKER_FLAGS_DEBUG " -fsanitize=undefined")
+	# add_link_options(-fsanitize=undefined)
+
+	# string(APPEND CMAKE_CXX_FLAGS_DEBUG " -ftime-trace")
+
+	# Include what you use
+	# find_program(IWYU_PATH NAMES include-what-you-use iwyu)
+	# if(NOT IWYU_PATH)
+	# 	message(FATAL_ERROR "Could not find the program include-what-you-use")
+	# endif()
+	# set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${IWYU_PATH})
+endif()
 
 # Define project
 project(algs LANGUAGES CXX
@@ -32,17 +50,18 @@ target_link_libraries(${PROJECT_NAME} INTERFACE 3rd_party io math)
 
 # Where to search for includes
 target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+target_precompile_headers(${PROJECT_NAME} INTERFACE algs/algs.h)
 
 # Use openmp if found
-option(USE_OPENMP "flag to use OpenMP for multithreading" ON)
-if(USE_OPENMP)
-    find_package(OpenMP 3.0 COMPONENTS CXX)
-    if (OpenMP_CXX_FOUND)
-        message(STATUS "Building with OpenMP Multithreading.")
-    else()
-        message(STATUS "No OpenMP found, no multithreading.")
-    endif()
-endif()
+# option(USE_OPENMP "flag to use OpenMP for multithreading" ON)
+# if(USE_OPENMP)
+#     find_package(OpenMP 3.0 COMPONENTS CXX)
+#     if (OpenMP_CXX_FOUND)
+#         message(STATUS "Building with OpenMP Multithreading.")
+#     else()
+#         message(STATUS "No OpenMP found, no multithreading.")
+#     endif()
+# endif()
 #############
 #  Doxygen  #
 #############

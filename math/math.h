@@ -1,4 +1,9 @@
 #pragma once
-#include <bits/stdc++.h>
 
-/* bool is_prime(uint64_t); */
+namespace algs
+{
+  namespace math
+  {
+    /* bool is_prime(uint64_t); */
+  } /* math */ 
+} /* algs */ 
