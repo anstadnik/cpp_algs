@@ -9,11 +9,9 @@ string(APPEND CMAKE_CXX_FLAGS_DEBUG " -Wall -Wextra -pedantic -Werror")
 
 # Set c++ standard
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 if(CMAKE_BUILD_TYPE MATCHES "Debug")
-	# set(CMAKE_BUILD_TYPE "RelWithDebInfo")
-
 	# string(APPEND CMAKE_CXX_FLAGS_DEBUG " -fno-omit-frame-pointer -fsanitize=address")
 	# string(APPEND CMAKE_LINKER_FLAGS_DEBUG " -fno-omit-frame-pointer -fsanitize=address")
 	# add_link_options(-fsanitize=address)
@@ -23,13 +21,6 @@ if(CMAKE_BUILD_TYPE MATCHES "Debug")
 	# add_link_options(-fsanitize=undefined)
 
 	# string(APPEND CMAKE_CXX_FLAGS_DEBUG " -ftime-trace")
-
-	# Include what you use
-	# find_program(IWYU_PATH NAMES include-what-you-use iwyu)
-	# if(NOT IWYU_PATH)
-	# 	message(FATAL_ERROR "Could not find the program include-what-you-use")
-	# endif()
-	# set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${IWYU_PATH})
 endif()
 
 # Define project
@@ -42,15 +33,15 @@ project(algs LANGUAGES CXX
 add_subdirectory(3rd_party)
 add_subdirectory(io)
 add_subdirectory(math)
+add_subdirectory(helpers)
 
 # Create a single library
 add_library(${PROJECT_NAME} INTERFACE)
 
-target_link_libraries(${PROJECT_NAME} INTERFACE 3rd_party io math)
+target_link_libraries(${PROJECT_NAME} INTERFACE 3rd_party io math helpers)
 
 # Where to search for includes
 target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
-target_precompile_headers(${PROJECT_NAME} INTERFACE algs/algs.h)
 
 # Use openmp if found
 # option(USE_OPENMP "flag to use OpenMP for multithreading" ON)
@@ -62,6 +53,14 @@ target_precompile_headers(${PROJECT_NAME} INTERFACE algs/algs.h)
 #         message(STATUS "No OpenMP found, no multithreading.")
 #     endif()
 # endif()
+
+# Colored output
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+   add_compile_options (-fdiagnostics-color=always)
+elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+   add_compile_options (-fcolor-diagnostics)
+endif ()
+
 #############
 #  Doxygen  #
 #############
