@@ -34,11 +34,12 @@ add_subdirectory(3rd_party)
 add_subdirectory(io)
 add_subdirectory(math)
 add_subdirectory(helpers)
+add_subdirectory(leetcode_helpers)
 
 # Create a single library
 add_library(${PROJECT_NAME} INTERFACE)
 
-target_link_libraries(${PROJECT_NAME} INTERFACE 3rd_party io math helpers)
+target_link_libraries(${PROJECT_NAME} INTERFACE 3rd_party io math helpers leetcode_helpers)
 
 # Where to search for includes
 target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
