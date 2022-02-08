@@ -9,7 +9,7 @@ struct ListNode {
   /* ListNode() : val(0), next(nullptr) {} */
   ListNode(int x) : val(x), next(nullptr) {}
   ListNode(int x, ListNode* next) : val(x), next(next) {}
-  ListNode(const std::initializer_list<int>& l) {
+  ListNode(const std::initializer_list<int>& l): next(nullptr) {
     if (!l.size())
       throw std::runtime_error("You can't create an empty List, use nullptr");
     ListNode* cur = this;
